@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/nermin99/malartag-scraper#readme",
   "dependencies": {
+    "aws-sdk": "^2.1368.0",
     "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.0.3",
     "puppeteer": "^19.11.1"
   },
   "devDependencies": {
