@@ -1,30 +1,23 @@
 {
-  "name": "malartag-scraper",
+  "name": "awspackages",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nermin99/malartag-scraper.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nermin99/malartag-scraper/issues"
-  },
-  "homepage": "https://github.com/nermin99/malartag-scraper#readme",
   "dependencies": {
-    "aws-sdk": "^2.1368.0",
     "cheerio": "^1.0.0-rc.12",
+    "chrome-aws-lambda": "^10.0.0",
     "dotenv": "^16.0.3",
-    "puppeteer": "^19.11.1"
+    "puppeteer-core": "^10.0.0"
   },
   "devDependencies": {
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "puppeteer": "^10.0.0"
   }
 }

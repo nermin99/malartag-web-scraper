@@ -1,34 +1,18 @@
-const cheerio = require('cheerio')
-const puppeteer = require('puppeteer')
-const AWS = require('aws-sdk')
-require('dotenv').config()
-
-AWS.config.update({
-  region: process.env.AWS_DEFAULT_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-})
-
-const dynamoClient = new AWS.DynamoDB.DocumentClient()
-const TABLE_NAME = 'malartag-scraper'
+import cheerio from 'cheerio'
+import puppeteer from 'puppeteer-core'
+import chromium from 'chrome-aws-lambda'
 
 // const SITE_URL =
 //   'https://www.trafikverket.se/trafikinformation/tag/?Station=Stockholm%20C&ArrDep=departure'
-
 const SITE_URL =
   'https://www.trafikverket.se/trafikinformation/tag?Station=Nykvarn&ArrDep=departure'
 
 const start = async () => {
-  const defaultParams = {
-    headless: 'new',
-  }
-  const prodParams = {
-    executablePath: '/usr/bin/chromium-browser',
-    args: ['--no-sandbox'],
-  }
-  const browser = await puppeteer.launch({
-    ...defaultParams,
-    ...(process.env.NODE_ENV === 'production' ? prodParams : {}),
+  const browser = await chromium.puppeteer.launch({
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
   })
   const page = await browser.newPage()
 
