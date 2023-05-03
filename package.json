@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "zip": "mkdir -p nodejs && cp package.json nodejs/ && npm --prefix ./nodejs install --omit=dev && zip -r nodejs.zip nodejs",
+    "build": "mkdir -p nodejs && cp package.json nodejs/ && npm --prefix nodejs install --omit=dev && mv nodejs/node_modules/{*,.bin,.package-lock.json} nodejs/ && rm -r nodejs/{node_modules,package*.json}",
+    "zip": "npm run build && zip -r nodejs.zip nodejs",
     "uploadToS3": "aws s3 cp nodejs.zip s3://nermin99bucket"
   },
   "keywords": [],
