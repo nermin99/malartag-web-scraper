@@ -11,5 +11,4 @@ RUN npm ci --omit=dev
 COPY .env .env
 COPY index.js index.js
 
-EXPOSE 3000
 CMD [ "npm", "start" ]
