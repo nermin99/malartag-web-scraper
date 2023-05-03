@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "zip": "mkdir -p nodejs && cp package.json nodejs/ && npm --prefix ./nodejs install --omit=dev && zip -r nodejs.zip nodejs"
   },
   "keywords": [],
   "author": "",
