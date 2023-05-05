@@ -2,8 +2,7 @@
   "name": "awspackages",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
     "start": "node index.js",
     "build": "rm -rf nodejs && mkdir -p nodejs && cp package.json nodejs/ && npm --prefix nodejs install --omit=dev && mv nodejs/node_modules/{*,.bin,.package-lock.json} nodejs/ && rm -r nodejs/node_modules",
