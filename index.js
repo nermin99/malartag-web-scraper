@@ -40,4 +40,4 @@ exports.handler = async (event) => {
   browser.close()
 }
 
-// handler() // TODO: REMOVE ME IN AWS
+exports.handler() // TODO: REMOVE ME IN AWS
