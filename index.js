@@ -1,14 +1,14 @@
-import cheerio from 'cheerio'
-import puppeteer from 'puppeteer-core'
-import chromium from 'chrome-aws-lambda'
+const cheerio = require('cheerio')
+const puppeteer = require('puppeteer-core')
+const chromium = require('@sparticuz/chromium')
 
 // const SITE_URL =
 //   'https://www.trafikverket.se/trafikinformation/tag/?Station=Stockholm%20C&ArrDep=departure'
 const SITE_URL =
   'https://www.trafikverket.se/trafikinformation/tag?Station=Nykvarn&ArrDep=departure'
 
-export const handler = async (event) => {
-  const browser = await chromium.puppeteer.launch({
+exports.handler = async (event) => {
+  const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath,
@@ -38,6 +38,12 @@ export const handler = async (event) => {
   console.log(results)
 
   browser.close()
+
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify('Hello from Lambda!'),
+  }
+  return response
 }
 
-handler() // TODO: REMOVE ME IN AWS
+exports.handler() // TODO: REMOVE ME IN AWS
