@@ -1,13 +1,13 @@
-import cheerio from 'cheerio'
-import puppeteer from 'puppeteer-core'
-import chromium from 'chrome-aws-lambda'
+const cheerio = require('cheerio')
+const puppeteer = require('puppeteer-core')
+const chromium = require('chrome-aws-lambda')
 
 // const SITE_URL =
 //   'https://www.trafikverket.se/trafikinformation/tag/?Station=Stockholm%20C&ArrDep=departure'
 const SITE_URL =
   'https://www.trafikverket.se/trafikinformation/tag?Station=Nykvarn&ArrDep=departure'
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   const browser = await chromium.puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
@@ -40,4 +40,4 @@ export const handler = async (event) => {
   browser.close()
 }
 
-handler() // TODO: REMOVE ME IN AWS
+// handler() // TODO: REMOVE ME IN AWS

@@ -1,25 +1,33 @@
 {
-  "name": "awspackages",
+  "name": "malartag-scraper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.mjs",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "build": "rm -rf nodejs && mkdir -p nodejs && cp package.json nodejs/ && npm --prefix nodejs install --omit=dev",
-    "zip": "rm -rf nodejs.zip && npm run build && zip -r nodejs.zip nodejs",
-    "uploadToS3": "aws s3 cp nodejs.zip s3://nermin99bucket"
+    "zip": "rm -rf nodejs.zip && npm run build && zip -r nodejs14.zip nodejs",
+    "uploadToS3": "aws s3 cp nodejs14.zip s3://nermin99bucket"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nermin99/malartag-scraper.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nermin99/malartag-scraper/issues"
+  },
+  "homepage": "https://github.com/nermin99/malartag-scraper#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
     "chrome-aws-lambda": "^10.1.0",
     "dotenv": "^16.0.3",
-    "puppeteer-core": "^10.4.0"
+    "puppeteer-core": "^20.1.1"
   },
   "devDependencies": {
     "prettier": "^2.8.8",
-    "puppeteer": "^10.4.0"
+    "puppeteer": "^20.1.1"
   }
 }
