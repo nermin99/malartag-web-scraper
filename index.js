@@ -7,7 +7,7 @@ import chromium from 'chrome-aws-lambda'
 const SITE_URL =
   'https://www.trafikverket.se/trafikinformation/tag?Station=Nykvarn&ArrDep=departure'
 
-const start = async () => {
+export const handler = async (event) => {
   const browser = await chromium.puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
@@ -40,4 +40,4 @@ const start = async () => {
   browser.close()
 }
 
-start()
+handler() // TODO: REMOVE ME IN AWS
