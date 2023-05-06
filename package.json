@@ -1,13 +1,12 @@
 {
-  "name": "awspackages",
+  "name": "malartag-scraper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.mjs",
+  "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "build": "rm -rf nodejs && mkdir -p nodejs && cp package.json nodejs/ && npm --prefix nodejs install --omit=dev",
-    "zip": "rm -rf nodejs.zip && npm run build && zip -r nodejs.zip nodejs",
-    "uploadToS3": "aws s3 cp nodejs.zip s3://nermin99bucket"
+    "zip": "tsc && 7z a function.zip ./dist/* node_modules/",
+    "uploadToS3": "aws s3 cp function.zip s3://nermin99bucket",
+    "sendToLambda": "aws s3 cp function.zip s3://nermin99bucket && aws lambda update-function-code --function-name puppeteer-on-lambda --s3-bucket nermin99bucket --s3-key function.zip"
   },
   "keywords": [],
   "author": "",
@@ -16,10 +15,12 @@
     "cheerio": "^1.0.0-rc.12",
     "chrome-aws-lambda": "^10.1.0",
     "dotenv": "^16.0.3",
-    "puppeteer-core": "^10.4.0"
+    "puppeteer-core": "^10.0.0"
   },
   "devDependencies": {
+    "@types/node": "^14.14.13",
+    "@types/puppeteer": "^5.4.2",
     "prettier": "^2.8.8",
-    "puppeteer": "^10.4.0"
+    "typescript": "^4.1.3"
   }
 }
