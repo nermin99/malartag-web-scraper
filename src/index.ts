@@ -27,6 +27,13 @@ export async function run() {
   })
   const page = await browser.newPage()
 
+  // TODO: This works but isn't supposed to be here
+  await page.goto('https://lumtest.com/myip.json')
+  const body = await page.$eval('body', (element) => element.textContent)
+  console.log('body', body)
+  browser.close()
+  return
+
   await page.goto(SITE_URL, { waitUntil: 'networkidle2', timeout: 60000 })
 
   const html = await page.content()
