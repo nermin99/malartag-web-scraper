@@ -1,4 +1,4 @@
-const STATION = 'Cst' // Nkv | Cst
+const STATION = 'Nkv' // Nkv | Cst
 
 const locations = {
   Arb: 'Arboga',
@@ -7,20 +7,21 @@ const locations = {
   Cst: 'Stockholm C',
 }
 
+const MINIMUM_DELAY = 20 // minutes
+
 const getTimezoneOffset = (date) => date.getTimezoneOffset() / -60
 
 // yyyy-MM-ddTHH:mm:ss+0X:00
-const formatDate = (date) =>
-  date.toISOString().split('Z')[0] + `+0${getTimezoneOffset(date)}:00`
+const formatDate = (date) => date.toISOString().split('Z')[0] + `+0${getTimezoneOffset(date)}:00`
 
 const offsetDate = (date, minutes) => new Date(date.getTime() + 60000 * minutes)
 
-let now = new Date()
-now = new Date(offsetDate(now, getTimezoneOffset(now) * 60))
+const localDate = (date) => new Date(offsetDate(date, getTimezoneOffset(date) * 60))
 
-const dateEstimated = formatDate(offsetDate(now, -5))
-const dateAdvertisedGT = formatDate(offsetDate(now, -30))
-const dateAdvertisedLT = formatDate(offsetDate(now, 120))
+const now = new Date()
+now.setHours(2, 0, 0, 0)
+const yesterday = new Date(now)
+yesterday.setDate(yesterday.getDate() - 1)
 
 // const URL = 'https://lumtest.com/myip.json'
 const URL = 'https://api.trafikinfo.trafikverket.se/v2/data.json'
@@ -37,19 +38,12 @@ options.body = `
                 <EQ name="LocationSignature" value="${STATION}" />
                 <EQ name="Advertised" value="true" />
                 <EQ name="ActivityType" value="Avgang" />
-                <OR>
-                    <AND>
-                        <GT name="AdvertisedTimeAtLocation" value="${dateAdvertisedGT}" />
-                        <LT name="AdvertisedTimeAtLocation" value="${dateAdvertisedLT}" />
-                    </AND>
-                    <GT name="EstimatedTimeAtLocation" value="${dateEstimated}" />
-                </OR>
+                <GT name="AdvertisedTimeAtLocation" value="${formatDate(localDate(yesterday))}"/>
             </AND>
         </FILTER>
     </QUERY>
 </REQUEST>
 `
-// console.log(options.body)
 
 const reDate = /\d{4}-\d{2}-\d{2}/
 const reTime = /\d{2}:\d{2}/
@@ -86,12 +80,11 @@ export const handler = async (event) => {
     // Check if train is delayed
     if (TimeAtLocation) {
       obj.TimeAtLocation = TimeAtLocation
-      const delta = Math.floor(
-        (new Date(TimeAtLocation).getTime() - new Date(AdvertisedTimeAtLocation).getTime()) /
-          60000
+      const delay = Math.floor(
+        (new Date(TimeAtLocation).getTime() - new Date(AdvertisedTimeAtLocation).getTime()) / 60000
       )
-      if (delta > 0) {
-        obj.delay = delta
+      if (delay >= MINIMUM_DELAY) {
+        obj.delay = delay
         results.push(obj)
       }
     }
