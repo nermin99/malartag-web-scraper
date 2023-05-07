@@ -2,25 +2,15 @@
   "name": "malartag-scraper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
     "zip": "tsc && 7z a function.zip ./dist/* node_modules/",
+    "zip2": "zip function.zip index.mjs",
     "uploadToS3": "aws s3 cp function.zip s3://nermin99bucket",
-    "sendToLambda": "aws s3 cp function.zip s3://nermin99bucket && aws lambda update-function-code --function-name puppeteer-on-lambda --s3-bucket nermin99bucket --s3-key function.zip"
+    "sendToLambda": "aws s3 cp function.zip s3://nermin99bucket && aws lambda update-function-code --function-name puppeteer-on-lambda --s3-bucket nermin99bucket --s3-key function.zip",
+    "updateLambda": "npm run zip2 && aws lambda update-function-code --function-name malartag-scraper --zip-file fileb://function.zip"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "chrome-aws-lambda": "^10.1.0",
-    "dotenv": "^16.0.3",
-    "puppeteer-core": "^10.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^14.14.13",
-    "@types/puppeteer": "^5.4.2",
-    "prettier": "^2.8.8",
-    "typescript": "^4.1.3"
-  }
+  "license": "ISC"
 }
