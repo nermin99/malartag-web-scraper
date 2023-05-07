@@ -1,4 +1,4 @@
-const STATION = 'Nkv' // Nkv | Cst
+const STATION = 'Cst' // Nkv | Cst
 
 const locations = {
   Arb: 'Arboga',
@@ -51,45 +51,56 @@ options.body = `
 `
 // console.log(options.body)
 
-const response = await fetch(URL, options)
-const responseBody = await response.text().then((text) => JSON.parse(text))
+const reDate = /\d{4}-\d{2}-\d{2}/
+const reTime = /\d{2}:\d{2}/
 
-const trains = responseBody?.RESPONSE?.RESULT[0]?.TrainAnnouncement
+export const handler = async (event) => {
+  const response = await fetch(URL, options)
+  const responseBody = await response.text().then((text) => JSON.parse(text))
 
-// console.dir(trains, { depth: null })
+  const trains = responseBody?.RESPONSE?.RESULT[0]?.TrainAnnouncement
+  // console.dir(trains[0], { depth: null })
 
-const results = []
-for (const train of trains) {
-  const { AdvertisedTrainIdent, AdvertisedTimeAtLocation, TimeAtLocation } = train
+  const results = []
+  for (const train of trains) {
+    const { AdvertisedTrainIdent, AdvertisedTimeAtLocation, TimeAtLocation } = train
 
-  const date = new Date(AdvertisedTimeAtLocation)
-  const obj = {
-    date: date.toISOString().split('T')[0],
-    time: date.getHours() + ':' + date.getMinutes(),
-    location: locations[train.ToLocation[0].LocationName],
-    AdvertisedTrainIdent,
-    // FromLocation: train.FromLocation[0].LocationName,
-    ToLocation: train.ToLocation[0].LocationName,
-    cancelled: false,
-    AdvertisedTimeAtLocation,
-  }
-
-  // Check if train is cancelled
-  if (train?.Deviation?.[0]?.Description === 'Inställt') {
-    obj.cancelled = true
-    results.push(obj)
-    continue
-  }
-
-  // Check if train is delayed
-  if (TimeAtLocation) {
-    obj.TimeAtLocation = TimeAtLocation
-    const delta = Math.floor((new Date(TimeAtLocation).getTime() - date.getTime()) / 60000)
-    if (delta > 0) {
-      obj.delay = delta
-      results.push(obj)
+    const obj = {
+      date: AdvertisedTimeAtLocation.match(reDate)[0],
+      time: AdvertisedTimeAtLocation.match(reTime)[0],
+      location: locations[train.ToLocation[0].LocationName],
+      AdvertisedTrainIdent,
+      // FromLocation: train.FromLocation[0].LocationName,
+      ToLocation: train.ToLocation[0].LocationName,
+      cancelled: false,
+      AdvertisedTimeAtLocation,
     }
+
+    // Check if train is cancelled
+    if (train?.Deviation?.[0]?.Description === 'Inställt') {
+      obj.cancelled = true
+      results.push(obj)
+      continue
+    }
+
+    // Check if train is delayed
+    if (TimeAtLocation) {
+      obj.TimeAtLocation = TimeAtLocation
+      const delta = Math.floor(
+        (new Date(TimeAtLocation).getTime() - new Date(AdvertisedTimeAtLocation).getTime()) /
+          60000
+      )
+      if (delta > 0) {
+        obj.delay = delta
+        results.push(obj)
+      }
+    }
+  }
+
+  return {
+    statusCode: 200,
+    body: results,
   }
 }
 
-console.log(results)
+// console.log(handler()) // TODO: REMOVE ME IN AWS

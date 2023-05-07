@@ -5,8 +5,10 @@
   "main": "index.mjs",
   "scripts": {
     "zip": "tsc && 7z a function.zip ./dist/* node_modules/",
+    "zip2": "zip function.zip index.mjs",
     "uploadToS3": "aws s3 cp function.zip s3://nermin99bucket",
-    "sendToLambda": "aws s3 cp function.zip s3://nermin99bucket && aws lambda update-function-code --function-name puppeteer-on-lambda --s3-bucket nermin99bucket --s3-key function.zip"
+    "sendToLambda": "aws s3 cp function.zip s3://nermin99bucket && aws lambda update-function-code --function-name puppeteer-on-lambda --s3-bucket nermin99bucket --s3-key function.zip",
+    "updateLambda": "npm run zip2 && aws lambda update-function-code --function-name malartag-scraper --zip-file fileb://function.zip"
   },
   "keywords": [],
   "author": "",
