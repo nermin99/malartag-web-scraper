@@ -103,4 +103,4 @@ export const handler = async (event) => {
   }
 }
 
-// console.log(handler()) // TODO: REMOVE ME IN AWS
+console.log(await handler()) // TODO: REMOVE ME IN AWS
