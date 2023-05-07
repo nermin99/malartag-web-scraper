@@ -1,3 +1,25 @@
+import AWS from 'aws-sdk'
+import dotenv from 'dotenv'
+dotenv.config()
+
+AWS.config.update({
+  region: process.env.AWS_DEFAULT_REGION,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+})
+
+const dynamoClient = new AWS.DynamoDB.DocumentClient()
+const TABLE_NAME = 'malartag-scraper'
+
+const addOrUpdateTrain = async (train) => {
+  const params = {
+    TableName: TABLE_NAME,
+    Item: train,
+  }
+  const result = await dynamoClient.put(params).promise()
+  return result
+}
+
 const STATION = 'Nkv' // Nkv | Cst
 
 const locations = {
@@ -88,6 +110,11 @@ export const handler = async (event) => {
         results.push(obj)
       }
     }
+  }
+
+  for (const result of results) {
+    result.id = `${result.date}_${result.time}_${result.location}`
+    addOrUpdateTrain(result)
   }
 
   return {
