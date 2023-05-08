@@ -32,12 +32,18 @@ npm start
 
 ## Deploy
 
+Make sure you are logged in to AWS CLI.
+
 ```sh
 npm run zip
 ```
 
-Make sure you are logged in to AWS CLI.
-
 ```sh
 npm run updateLambda
 ```
+
+## Scheduling
+
+Add AWS EventBridge trigger to your lambda function.
+
+Schedule to run once every 24 hours at 03:00 UTC: `cron(0 3 * * ? *)`.
