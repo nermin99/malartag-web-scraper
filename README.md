@@ -20,9 +20,9 @@ cp .env.example .env
 
 3. Download the [AWS CLI](https://aws.amazon.com/cli/).
 
-4. Create a lambda function. Replace `malartag-scraper` with your function name.
+4. Create a Lambda function. Replace `malartag-scraper-function` with your function name.
 
-5. Create a DynamoDB table. Replace `malartag-scraper-function` with your table name.
+5. Create a DynamoDB table. Replace `malartag-scraper-table` with your table name.
 
 ## Run
 

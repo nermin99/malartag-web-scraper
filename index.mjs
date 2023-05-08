@@ -9,7 +9,7 @@ AWS.config.update({
 })
 
 const dynamoClient = new AWS.DynamoDB.DocumentClient()
-const TABLE_NAME = 'malartag-scraper'
+const TABLE_NAME = 'malartag-scraper-table'
 
 const addOrUpdateTrain = async (train) => {
   const params = {
