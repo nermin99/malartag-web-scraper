@@ -4,12 +4,9 @@
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "zip": "tsc && 7z a function.zip ./dist/* node_modules/",
-    "zip2": "zip function.zip index.mjs",
-    "zip3": "7z a function.zip index.mjs package.json node_modules/ .env",
+    "zip": "rm -rf function.zip && zip -r function.zip index.mjs package.json node_modules/ .env",
     "uploadToS3": "aws s3 cp function.zip s3://nermin99bucket",
-    "sendToLambda": "aws s3 cp function.zip s3://nermin99bucket && aws lambda update-function-code --function-name puppeteer-on-lambda --s3-bucket nermin99bucket --s3-key function.zip",
-    "updateLambda": "npm run zip3 && aws lambda update-function-code --function-name malartag-scraper --zip-file fileb://function.zip"
+    "updateLambda": "aws lambda update-function-code --function-name malartag-scraper --zip-file fileb://function.zip"
   },
   "keywords": [],
   "author": "",

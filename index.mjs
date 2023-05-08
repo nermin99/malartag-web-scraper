@@ -41,7 +41,7 @@ const offsetDate = (date, minutes) => new Date(date.getTime() + 60000 * minutes)
 const localDate = (date) => new Date(offsetDate(date, getTimezoneOffset(date) * 60))
 
 const now = new Date()
-now.setHours(2, 0, 0, 0)
+now.setHours(3, 0, 0, 0)
 const yesterday = new Date(now)
 yesterday.setDate(yesterday.getDate() - 1)
 
@@ -123,4 +123,4 @@ export const handler = async (event) => {
   }
 }
 
-console.log(await handler()) // TODO: REMOVE ME IN AWS
+// console.log(await handler()) // TODO: REMOVE ME IN AWS
