@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "start": "node index.mjs",
+    "start": "node .",
     "zip": "rm -rf function.zip && zip -r function.zip index.mjs package.json node_modules/ .env",
     "uploadToS3": "aws s3 cp function.zip s3://nermin99bucket",
-    "updateLambda": "aws lambda update-function-code --function-name malartag-scraper --zip-file fileb://function.zip"
+    "updateLambda": "aws lambda update-function-code --function-name malartag-scraper-function --zip-file fileb://function.zip"
   },
   "keywords": [],
   "author": "",
