@@ -16,8 +16,9 @@ const addOrUpdateTrain = async (train) => {
     TableName: TABLE_NAME,
     Item: train,
   }
-  const result = await dynamoClient.put(params).promise()
-  return result
+  const res = await dynamoClient.put(params).promise()
+  // console.log(res)
+  return res
 }
 
 const STATION = 'Nkv' // Nkv | Cst
@@ -45,7 +46,6 @@ now.setHours(3, 0, 0, 0)
 const yesterday = new Date(now)
 yesterday.setDate(yesterday.getDate() - 1)
 
-// const URL = 'https://lumtest.com/myip.json'
 const URL = 'https://api.trafikinfo.trafikverket.se/v2/data.json'
 const options = {
   method: 'POST',
@@ -112,9 +112,11 @@ export const handler = async (event) => {
     }
   }
 
+  // console.log(results)
+
   for (const result of results) {
     result.id = `${result.date}_${result.time}_${result.location}`
-    addOrUpdateTrain(result)
+    await addOrUpdateTrain(result) // await necessary when running in aws
   }
 
   return {
