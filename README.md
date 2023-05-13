@@ -20,9 +20,17 @@ cp .env.example .env
 
 3. Download the [AWS CLI](https://aws.amazon.com/cli/).
 
-4. Create a Lambda function. Replace `malartag-scraper-function` with your function name.
+4. Create a DynamoDB table. Replace `malartag-scraper-table` with your table name.
 
-5. Create a DynamoDB table. Replace `malartag-scraper-table` with your table name.
+5. Create a Lambda function. Replace `malartag-scraper-function` with your function name.
+
+### Lambda Function Configuration
+
+1. Set Timeout to 10 seconds minimum.
+
+1. Add environment variable `NODE_ENV`: `production`.
+
+1. Add the following permission (role name): `AmazonDynamoDBFullAccess`.
 
 ## Run
 
