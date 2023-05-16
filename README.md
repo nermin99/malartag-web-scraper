@@ -55,3 +55,9 @@ npm run updateLambda
 Add AWS EventBridge trigger to your lambda function.
 
 Schedule to run once every 24 hours at 03:00 UTC: `cron(0 3 * * ? *)`.
+
+---
+
+## Mälartåg Form Filler
+
+See the [form-filler](./form-filler/README.md) directory for more information.
