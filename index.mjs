@@ -30,6 +30,7 @@ const locations = {
   U: 'Uppsala C',
   Et: 'Eskilstuna C',
   Cst: 'Stockholm C',
+  Öb: 'Örebro S',
 }
 
 const MINIMUM_DELAY = 20 // minutes
