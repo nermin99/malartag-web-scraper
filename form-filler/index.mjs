@@ -4,13 +4,14 @@ dotenv.config()
 
 // TODO: FILL IN TRAVEL INFORMATION
 const DEPARTURE_STATION = 'Nykvarn'
-const ARRIVAL_STATION = 'Stockholm Central'
-const TRAVEL_DATE = '2023-05-09'
-const SCHEDULED_DEPARTURE_TIME = '07:36'
+const ARRIVAL_STATION = 'Arboga'
+const TRAVEL_DATE = '2023-05-05'
+const SCHEDULED_DEPARTURE_TIME = '23:24'
 
 const URL = 'https://evf-regionsormland.preciocloudapp.net/trains'
 
-const browser = await puppeteer.launch({ headless: 'new' })
+const browser = await puppeteer.launch({ headless: true })
+// const browser = await puppeteer.launch({ headless: false, slowMo: 20 })
 const page = await browser.newPage()
 await page.setViewport({ width: 800, height: 600 })
 
@@ -55,7 +56,7 @@ await page.evaluate((day) => {
 await page.screenshot({ path: '6.png' })
 
 // Select scheduled departure time
-await page.$$('div[data-index="1"] input').type(SCHEDULED_DEPARTURE_TIME)
+await page.type('input[placeholder="HH:mm"]', SCHEDULED_DEPARTURE_TIME)
 await page.screenshot({ path: '7.png' })
 
 // Click continue
@@ -65,16 +66,17 @@ await page.screenshot({ path: '8.png' })
 // 3. --------------------------------------------------------------------------
 // Fill in personal information
 const fields2 = await page.$$('div[data-index="2"] input')
-fields2[0].type(process.env.FIRST_NAME)
-fields2[1].type(process.env.LAST_NAME)
-fields2[2].type(process.env.ADDRESS)
-fields2[3].type(process.env.POSTAL_CODE)
-fields2[4].type(process.env.CITY)
-fields2[5].type(process.env.SSN)
-fields2[6].type(process.env.PHONE)
-fields2[7].type(process.env.EMAIL)
-fields2[8].type(process.env.EMAIL) // confirm email
-await page.screenshot({ path: '9.png' })
+await fields2[0].type(process.env.FIRST_NAME)
+await fields2[1].type(process.env.LAST_NAME)
+await fields2[2].type(process.env.ADDRESS)
+await fields2[3].type(process.env.POSTAL_CODE)
+await page.screenshot({ path: '9a.png' })
+await fields2[4].type(process.env.CITY)
+await fields2[5].type(process.env.SSN)
+await fields2[6].type(process.env.PHONE)
+await fields2[7].type(process.env.EMAIL)
+await fields2[8].type(process.env.EMAIL) // confirm email
+await page.screenshot({ path: '9b.png' })
 
 // Click continue
 await page.click('div[data-index="2"] button.MuiButton-containedPrimary')
