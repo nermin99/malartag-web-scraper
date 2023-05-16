@@ -4,13 +4,13 @@ dotenv.config()
 
 // TODO: FILL IN TRAVEL INFORMATION
 const DEPARTURE_STATION = 'Nykvarn'
-const ARRIVAL_STATION = 'Arboga'
-const TRAVEL_DATE = '2023-05-05'
-const SCHEDULED_DEPARTURE_TIME = '23:24'
+const ARRIVAL_STATION = 'Stockholm C'
+const TRAVEL_DATE = '2023-05-12'
+const SCHEDULED_DEPARTURE_TIME = '23:36'
 
 const URL = 'https://evf-regionsormland.preciocloudapp.net/trains'
 
-const browser = await puppeteer.launch({ headless: true })
+const browser = await puppeteer.launch({ headless: true, slowMo: 20 })
 // const browser = await puppeteer.launch({ headless: false, slowMo: 20 })
 const page = await browser.newPage()
 await page.setViewport({ width: 800, height: 600 })
