@@ -31,6 +31,7 @@ const locations = {
   Et: 'Eskilstuna C',
   Cst: 'Stockholm C',
   Öb: 'Örebro S',
+  Sgs: 'Strängnäs',
 }
 
 const MINIMUM_DELAY = 20 // minutes
