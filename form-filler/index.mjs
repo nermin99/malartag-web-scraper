@@ -4,9 +4,9 @@ dotenv.config()
 
 // TODO: FILL IN TRAVEL INFORMATION
 const DEPARTURE_STATION = 'Nykvarn'
-const ARRIVAL_STATION = 'Arboga'
-const TRAVEL_DATE = '2023-05-08'
-const SCHEDULED_DEPARTURE_TIME = '17:25'
+const ARRIVAL_STATION = 'Stockholm C'
+const TRAVEL_DATE = '2023-05-12'
+const SCHEDULED_DEPARTURE_TIME = '23:36'
 
 const URL = 'https://evf-regionsormland.preciocloudapp.net/trains'
 
@@ -97,5 +97,5 @@ await browser.close()
 
 // Helper function
 function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
+  return new Promise((r) => setTimeout(r, ms))
 }
