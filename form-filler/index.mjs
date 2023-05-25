@@ -4,9 +4,9 @@ dotenv.config()
 
 // TODO: FILL IN TRAVEL INFORMATION
 const DEPARTURE_STATION = 'Nykvarn'
-const ARRIVAL_STATION = 'Stockholm C'
-const TRAVEL_DATE = '2023-05-12'
-const SCHEDULED_DEPARTURE_TIME = '23:36'
+const ARRIVAL_STATION = 'Arboga'
+const TRAVEL_DATE = '2023-05-08'
+const SCHEDULED_DEPARTURE_TIME = '17:25'
 
 const URL = 'https://evf-regionsormland.preciocloudapp.net/trains'
 
@@ -89,6 +89,13 @@ await page.screenshot({ path: '11.png' })
 
 // Submit form
 await page.click('div[data-index="3"] button.MuiButton-containedPrimary')
+await sleep(1000)
 await page.screenshot({ path: '12.png' })
 
 await browser.close()
+// -----------------------------------------------------------------------------
+
+// Helper function
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
