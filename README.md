@@ -1,4 +1,4 @@
-# Mälartåg Scraper
+# Mälartåg Web Scraper
 
 Delayed [Mälartåg](https://www.trafikverket.se/trafikinformation/tag?Station=Nykvarn&ArrDep=departure), gotta catch 'em all!
 
